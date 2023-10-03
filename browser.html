@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+
+    <link rel="icon" href="/images/web (1).png" type="image/png">
+    <title>WebX</title>
+    <style>
+        body {
+            background-color: rgb(74, 159, 245);
+            font-family: Arial, sans-serif;
+        }
+
+        #browser-bar {
+            margin-bottom: 10px;
+        }
+
+        .input{
+            width: 600px;
+            height: 30px;
+            border-radius: 10px;
+            border-color: rgb(142, 198, 255);
+            border-width: 4px;
+            border-style: solid;
+        }
+        .logo{
+            width: 80px;
+
+            margin-right: 10px;
+        }
+
+        #web-view {
+            background-color: rgb(206, 232, 243);
+
+            width: 600;
+            height: 565px;
+            border-radius: 10px;
+            border: 4px solid white;
+        }
+        a{
+            text-decoration: none;
+        }
+       
+        .Homebutton{
+            cursor: pointer;
+            width: 70px;
+            height: 33px;
+            font-weight: bold;
+            background-color: rgb(0, 97, 194);
+            border-radius: 10px;
+            font-size: 19px;
+            color: white;
+            border-color: white;
+            box-shadow: 3px 3px white;
+
+        }
+        .reload{
+
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 40px;
+            background: none;
+            border-style:hidden;
+
+        }
+        .search{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 10px;
+            color: white;
+            background-color: rgb(63, 236, 63);
+            border-color: white;
+            box-shadow: 3px 3px white;
+        }
+        .history{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 10px;
+            color: white;
+            background-color: red;
+            border-color: white;
+            box-shadow: 3px 3px white;
+        }
+        .map{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 10px;
+            color: white;
+            text-align: left;
+            background-color: purple;
+            border-color: white;
+            box-shadow: 3px 3px white;
+        }
+        .weather{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 23px;
+            border-radius: 10px;
+            color: white;
+            background-color: rgb(255, 213, 0);
+            border-color: white;
+            box-shadow: 3px 3px white;
+        }
+
+        .bing{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 10px;
+            color: white;
+            background-color: plum;
+            border-color: white;
+            box-shadow: 3px 3px white;
+            text-align: left;
+            background-image: url('images/bing.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+        .wiki{
+            margin-left: 6px;
+            cursor: pointer;
+            width: 80px;
+            height: 35px;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 10px;
+            color: white;
+            background-color: rgb(104, 193, 237);
+            border-color: white;
+            box-shadow: 3px 3px white;
+            text-align: left;
+            background-image: url('images/wiki.svg.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+        
+        
+        
+    </style>
+     <script>
+        var historyData = JSON.parse(localStorage.getItem('history')) || [];
+
+
+        function loadPage() {
+            var url = document.getElementById("url-input").value;
+            var webView = document.getElementById("web-view");
+
+            // Simple validation for URL format (starts with http:// or https://)
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+
+            // Store the URL in history
+            historyData.push(url);
+
+
+
+
+            // Store history data in localStorage
+            localStorage.setItem('history', JSON.stringify(historyData));
+
+            // Load the URL into an iframe with the sandbox attribute
+            webView.innerHTML = `<iframe src="${url}" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe>`;
+        }
+
+
+        function showHistory() {
+            // Redirect to the history page with history data as a query parameter
+            window.location.href = 'history.html';
+        }
+
+        function home(){
+        url = 'home.html';
+        window.location.href = url;
+    }
+    function reloadPage(){
+        location.reload();
+    }
+
+    function wikipedia(){
+        var webView = document.getElementById("web-view");
+        webView.innerHTML = `<iframe src="https://www.wikipedia.org" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe>`;
+    }
+
+    function map(){
+        var webView = document.getElementById("web-view");
+        webView.innerHTML = '<iframe src="https://arcgis.com/apps/mapviewer/index.html" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe>'
+    }
+
+    function w(){
+        var webView = document.getElementById("web-view");
+        webView.innerHTML = '<iframe src="https://accuweather.com" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe>'
+    }
+
+    function bing(){
+        var webView = document.getElementById("web-view");
+        webView.innerHTML = '<iframe src="https://bing.com" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe>'
+    }
+
+    window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+    
+
+    </script>
+
+</head>
+
+<body>
+    <div id="browser-bar">
+
+        <div>
+            <img class="logo" src="images/web.png">
+            <button class="Homebutton" onclick="home()">Home</button>
+        <button class="reload" onclick="reloadPage()"> ⟳ </button>
+        <input class="input"  type="text" id="url-input" placeholder="Enter URL">
+        <button class="search" onclick="loadPage()">Search</button>
+        <button class="history" onclick="showHistory()">History</button>
+        <button class="wiki" onclick="wikipedia()">Wiki</button>
+        <button class="bing" onclick="bing()">bing</button>
+        <button class="map" onclick="map()" >Map 🧭 </button>
+        <button class="weather" onclick="w()" > 🌦️ </button>
+
+
+        
+        </div>
+        
+        
+        
+    </div>
+    <div id="web-view"></div>
+
+    
+</body>
+
+</html>
+
+

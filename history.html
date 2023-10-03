@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>History</title>
+</head>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var historyList = document.getElementById('history-list');
+
+        // Get the history data from localStorage
+        var historyData = JSON.parse(localStorage.getItem('history')) || [];
+
+        // Display the history data on the page
+        historyData.forEach(function(url) {
+            var listItem = document.createElement('li');
+            listItem.textContent = url;
+            historyList.appendChild(listItem);
+        });
+    });
+
+    function deleteHistory(){
+        console.log('Before clearing:', localStorage.getItem('history'));
+        localStorage.clear();
+        console.log('After clearing:', localStorage.getItem('history'));
+
+        location.reload();
+
+    }
+    function back(){
+        url = 'browser.html';
+        window.location.href = url;
+        console.log(window.open(url));
+    }
+
+    window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+</script>
+<style>
+    body{
+        background-color: rgb(74, 159, 245);
+    }
+    .logo{
+        margin-top: 5px;
+        margin-left: 14px;
+        width: 110px;
+    }
+    .historyText{
+        margin-left: 14px;
+        text-align: center;
+        width: 1350px;
+        padding: 20px;
+        color: rgb(74, 159, 245);;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 12px;
+        border-color: white;
+        border-style: solid;
+        margin-bottom: 10px;
+        border-width: 4px;
+        background-color: rgb(206, 232, 243);
+    }
+    .clear{
+        width: 120px;
+        height: 45px;
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: bold;
+        border-color: white;
+        border-width: 2px;
+        background-color: red;
+        color: white;
+        
+    }
+    .back{
+        width: 120px;
+        height: 45px;
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: bold;
+        border-color: white;
+        border-width: 2px;
+        margin-left: 16px;
+
+        background-color: rgb(63, 236, 63);
+        color: white;
+        
+    }
+    .heading{
+        padding: 10px;
+        text-align: center;
+        font-size: 50px;
+        color: white;
+        border-radius: 12px;
+        width: 400px;
+        height: 80px;
+        margin-left: 520px;
+        box-shadow: 6px 6px rgb(63, 236, 63);
+        background-color: rgb(206, 232, 243);
+    }
+</style>
+
+<body>
+    <img class="logo" src="images/web.png" alt="logo">
+    <h1 class="heading" >Browser History</h1>
+    <button class="back" onclick="back()" >Browser</button>
+    <button class="clear" onclick="deleteHistory()" >Delete 🗑️ </button>
+    <ul class="historyText" id="history-list"></ul>
+
+</body>
+</html>
